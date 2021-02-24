@@ -26,8 +26,9 @@ azcopy copy "$FILE.tar.gz" "${AZ_BLOB_SAS_URL}" || exit 1
 
 echo "Job finished: $(date)"
 
-azcopy list ${AZ_BLOB_SAS_URL} > existing_file
+azcopy list ${AZ_BLOB_SAS_URL} > existing_file || exit 1
 
+[ "${BACKUP_PURGED_AFTER}" == "" ] && echo "No purge configured" && exit 0
 
 echo "Purge obsoleted backup created before $BACKUP_PURGED_AFTER seconds..."
 
