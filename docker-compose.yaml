@@ -12,7 +12,7 @@ services:
       - postgres
     environment:
       CRON_SCHEDULE: '@every 60s'
-      BACKUP_PURGED_AFTER: 300
+      MAX_BACKUP_RETENTION_IN_SECONDS: 300
       FILENAME_PREFIX: my-db-dump
       AZ_BLOB_SAS_URL: 'https://xxxxx.blob.core.windows.net/....vnxoc%3D'
       PG_DATABASE: dbname

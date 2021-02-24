@@ -1,6 +1,7 @@
 # postgres-backup-azure-blob-storage
 
 ## Usage example
+
 ```yaml
 postgres:
   image: postgres
@@ -37,4 +38,4 @@ db-backup-azure-blob-storage:
 | PG_PASSFILE | PostgreSQL Password file (like PGPASSFILE) | |
 | PG_EXTRA_OPTS | PostgreSQL Dump extra arguments | |
 | CRON_SCHEDULE | Schedule a cron job (example: @every 1h) https://pkg.go.dev/github.com/robfig/cron | |
-| BACKUP_PURGED_AFTER | Purge existing backup before N seconds | 2592000 (30 days) |
+| MAX_BACKUP_RETENTION_IN_SECONDS | Purge existing backup after N seconds | |

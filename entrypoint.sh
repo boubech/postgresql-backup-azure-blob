@@ -4,7 +4,6 @@ set -e
 
 export FILENAME_PREFIX=${FILENAME_PREFIX:-dump}
 export FILENAME_DATE_FORMAT_SUFFIX=${FILENAME_DATE_FORMAT_SUFFIX:-+%Y%m%d%H%M%S}
-export BACKUP_PURGED_AFTER=${BACKUP_PURGED_AFTER:-2592000}
 export PG_USER=${PG_USER:-postgres}
 export PG_DB=${PG_DB:-postgres}
 export PG_HOST=${PG_HOST:-postgres}

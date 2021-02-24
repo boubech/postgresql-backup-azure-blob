@@ -28,18 +28,8 @@ echo "Job finished: $(date)"
 
 azcopy list ${AZ_BLOB_SAS_URL} > existing_file || exit 1
 
-[ "${BACKUP_PURGED_AFTER}" == "" ] && echo "No purge configured" && exit 0
+[ "${MAX_BACKUP_RETENTION_IN_SECONDS}" == "" ] && echo "No purge configured" && exit 0
 
-echo "Purge obsoleted backup created before $BACKUP_PURGED_AFTER seconds..."
+./purge.sh
 
-export DELETE_BEFORE=$(date $FILENAME_DATE_FORMAT_SUFFIX -d@"$(( `date +%s`-$BACKUP_PURGED_AFTER))")
-echo "Delete backup before $DELETE_BEFORE "
-
-azcopy list $AZ_BLOB_SAS_URL | sed "s#INFO: $FILENAME_PREFIX-\(.*\).sql.tar.gz;.*#$FILENAME_PREFIX-;\1;.sql.tar.gz#" | grep "^$FILENAME_PREFIX" > existingBackups
-cat existingBackups | tr ";" "\t"  | awk "{if (\$2 < $DELETE_BEFORE){print \$0;}}" | tr -d '\t' > backupsToDelete
-
-echo "Backups to delete :"
-cat backupsToDelete
-azcopy rm $AZ_BLOB_SAS_URL --recursive=true --list-of-files=backupsToDelete
-
-exit 0
+exit $?

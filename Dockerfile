@@ -20,5 +20,8 @@ RUN chmod +x /entrypoint.sh
 ADD backup.sh /backup.sh
 RUN chmod +x /backup.sh
 
+ADD purge.sh /purge.sh
+RUN chmod +x /purge.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD [""]
