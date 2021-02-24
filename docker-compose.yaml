@@ -1,0 +1,24 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+  db-backup-azure-blob-storage:
+    image: jboubechtoula/postgres-backup-azure-blob-storage
+    links:
+      - postgres
+    environment:
+      CRON_SCHEDULE: '@every 60s'
+      BACKUP_PURGED_AFTER: 300
+      FILENAME_PREFIX: my-db-dump
+      AZ_BLOB_SAS_URL: 'https://xxxxx.blob.core.windows.net/....vnxoc%3D'
+      PG_DATABASE: dbname
+      PG_HOST: postgres
+      PG_USER: postgres
+      PG_PASSWORD: password
+      PG_EXTRA_OPTS: '--schema=public --blobs'
+    depends_on:
+      - postgres
